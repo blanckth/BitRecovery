@@ -1,27 +1,5 @@
 #include "image.h"
 #include "./../../utils/times/times.h"
-//struct stat {
-//    dev_t     st_dev;         // Device ID of device containing file
-//    ino_t     st_ino;         // Inode number
-//    mode_t    st_mode;        // File type and mode (permissions)
-//    nlink_t   st_nlink;       // Number of hard links
-//    uid_t     st_uid;         // User ID of owner
-//    gid_t     st_gid;         // Group ID of owner
-//    dev_t     st_rdev;        // Device ID (if special file)
-//    off_t     st_size;        // Total size, in bytes
-//    blksize_t st_blksize;     // Block size for filesystem I/O
-//    blkcnt_t  st_blocks;      // Number of 512B blocks allocated
-//
-//    // Time fields (may vary depending on libc/kernel version)
-//    struct timespec st_atim;  // Last access time
-//    struct timespec st_mtim;  // Last modification time
-//    struct timespec st_ctim;  // Last status change time
-//
-//    // Alternative older versions (POSIX format, seconds only)
-//    #define st_atime st_atim.tv_sec  // Last access time (legacy)
-//    #define st_mtime st_mtim.tv_sec  // Last mod time (legacy)
-//    #define st_ctime st_ctim.tv_sec  // Last status change time (legacy)
-//};
 
 static int fetch_file_stat(FILE *fp, struct stat *st) {
     if (!fp || !st) return -1;
@@ -61,8 +39,8 @@ int image_open(ImageFile *img, const char *path) {
     }
     memset(img->signature, 0, sizeof(img->signature));
     img->is_mbr = (img->first_bytes[510] == 0x55 && img->first_bytes[511] == 0xAA)? true : false;
-    img->is_gpt = false;
-    img->has_bitlocker = false;
+    img->is_gpt = (memcmp(&img->first_bytes[512], "EFI PART", 8) == 0)? true : false;
+    img->has_bitlocker = (memcmp(&img->first_bytes[3], "-FVE-FS-", 8) == 0)? true : false;
 
     // Reset file position to start
     rewind(fp);
@@ -73,20 +51,16 @@ int image_open(ImageFile *img, const char *path) {
     printf("# \t\tFile Open Timestamp: %s\n", tstrbuf); // Timestamp when file was opened
     printf("# \t\tResume Sector: %d\n",img->last_processed_sector +1);
     printf("# \t\tSector Block Size: %d\n",img->sector_size);
-    if (img->is_mbr){
-        printf("# \t\tPartitioning scheme: MBR ( Master Boot Record )\n");
-    } else {
-        if (img->is_gpt){
-            printf("# \t\tPartitioning scheme: GPT ( GUID Partition Table )\n");
-        } else {
-            printf("# \t\tPartitioning scheme: UNKNOWN\n");
-        }
-    }
-    if (img->has_bitlocker) {
-        printf("# \t\tBitLocker presence: Found\n");
-    } else {
-        printf("# \t\tBitLocker presence: Not found\n");
-    }
+    if (img->is_mbr)
+    printf("# \t\tPartitioning scheme: MBR (Master Boot Record)\n");
+    else if (img->is_gpt)
+    printf("# \t\tPartitioning scheme: GPT (GUID Partition Table)\n");
+    else
+    printf("# \t\tPartitioning scheme: UNKNOWN\n");
+    if (img->has_bitlocker)
+    printf("# \t\tBitLocker presence: Found\n");
+    else
+    printf("# \t\tBitLocker presence: Not found\n");
     // Printing Image File Metadata
     printf("\n# \t\tFile Metadata:\n");
     printf("# \t\t\tInode: %lu\n", (unsigned long)img->file_stat.st_ino);
@@ -107,11 +81,13 @@ int image_open(ImageFile *img, const char *path) {
 
     return 0; // Success
 }
+
 void image_close(ImageFile *img) {
     if (img && img->opened && img->fp) {
         fclose(img->fp);
         img->fp = NULL;
         img->opened = false;
+        memset(&img->file_stat, 0, sizeof(img->file_stat));
     }
 }
 

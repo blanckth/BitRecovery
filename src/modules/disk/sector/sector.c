@@ -11,3 +11,11 @@ size_t read_sectors(DiskHandle *disk, uint64_t start_sector, size_t count, uint8
     if (lseek(disk->fd, offset, SEEK_SET) == (off_t)-1) return -1;
     return read(disk->fd, buffer, disk->sector_size * count);
 }
+
+// Print Sector Hex
+int sector_prt_hex( *img, const char *path){
+    BlockBit 
+
+
+
+} 

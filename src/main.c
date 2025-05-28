@@ -33,6 +33,9 @@ int main(int argc, char* argv[]) {
     if ( initRes != 0 ) {
         printf("# \t\tImage File Error : \t\t%d", initRes);
     } 
+
+    // Close Image File
+    image_close(&img);
     
     // Loading Disk
     printf("# \t\tLoading Disk:\n");

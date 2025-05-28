@@ -1,3 +1,4 @@
+// /src/modules/disk/disk.h
 #ifndef DISK_H
 #define DISK_H
 
@@ -8,8 +9,10 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <linux/fs.h>
+#include <sys/ioctl.h>
 
-#define SECTOR_SIZE 512
+#define SECTOR_SIZE 4096
 
 typedef struct {
     int fd;
