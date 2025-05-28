@@ -12,8 +12,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <time.h>
+#include <stddef.h>
 
 #define MAX_SIGNATURE_NAME 32
+#define BYTES_PER_LINE 16
 
 typedef struct {
     const char *path;                   // Full path to image file
@@ -55,6 +57,8 @@ typedef struct {
 
 // Function Prototypes
 int sector_prt_hex( *img, const char *path); // Print Sector Hex
+// Print full sector in multiple formats
+void print_sector(const uint8_t *buffer, size_t size, uint64_t base_offset);
 void image_close(ImageFile *img);
 bool image_is_open(const ImageFile *img);
 uint64_t image_get_size(const ImageFile *img);

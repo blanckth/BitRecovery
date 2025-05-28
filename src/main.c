@@ -45,9 +45,11 @@ int main(int argc, char* argv[]) {
         perror("Failed to open disk");
         return 1;
     }
+
     uint8_t buffer[img.file_stat.st_blksize];
 
-    //if (read_sector(disk, 0, buffer) > 0) {
+    size_t readRes = read_sector(disk, img.lps, buffer);
+    // if (read_sector(disk, 0, buffer) > 0) {
     //    printf("Read sector 0 successfully.\n");
     //} else {
     //    printf("Failed to read sector.\n");

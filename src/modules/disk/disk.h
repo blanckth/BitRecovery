@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <linux/fs.h>
 #include <sys/ioctl.h>
+#include <ctype.h>
 
 #define SECTOR_SIZE 4096
 
@@ -18,6 +19,7 @@ typedef struct {
     int fd;
     const char *path;
     blksize_t block_size;
+    blksize_t actual_size;
 } DiskHandle;
 
 // Initialize disk handle

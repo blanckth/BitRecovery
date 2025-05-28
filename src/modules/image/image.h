@@ -22,7 +22,7 @@ typedef struct {
     time_t open_time;                   // Timestamp when file was opened
     bool opened;                        // File open status
     blksize_t sector_size;              // Usually 512 bytes
-    int last_processed_sector;          // Resume point
+    int lps;                            // Resume point last_processed_sector
     uint8_t first_bytes[4096];          // First Block of image (e.g., for MBR/GPT check)
     char signature[MAX_SIGNATURE_NAME]; // File signature (label)
     bool is_gpt;                        // GPT partitioning scheme
