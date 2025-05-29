@@ -20,7 +20,8 @@ src/modules/disk/sector/sector.h
 src/modules/disk/sector/sector.c
 
 Certainly! Here's a comprehensive overview of the BitRecovery project, an advanced forensic bit-level recovery tool, along with a bilingual (English and Persian) presentation outline tailored for your clients.
-🔍 BitRecovery: Advanced Forensic Bit-Level Recovery Tool
+
+# 🔍 BitRecovery: Advanced Forensic Bit-Level Recovery Tool
 
 Overview:
 BitRecovery is an open-source forensic tool designed for low-level disk analysis and recovery. It enables investigators to read, interpret, and extract data directly from disk sectors, making it invaluable for scenarios involving damaged, encrypted, or partially overwritten partitions.
@@ -77,54 +78,11 @@ The project is organized into the following directories:
     Digital Forensics: Analyze disk structures for investigative purposes.
 
     Educational Tool: Understand low-level disk operations and structures.
-    Digital Detective+4LinkedIn+4DiskInternals+4
-    DiskInternals+1Digital Detective+1
+    Digital Detective
 
-🌐 Bilingual Presentation Outline
-Slide 1: Introduction
+    For more detailed information and to access the source code, please visit the BitRecovery GitHub Repository.
 
-    English: Welcome to the BitRecovery Tool Overview.
-
-    Persian: به معرفی ابزار BitRecovery خوش آمدید.
-    GetData Forensics
-
-Slide 2: Project Overview
-
-    English: BitRecovery is an open-source tool for low-level disk analysis and recovery.
-
-    Persian: BitRecovery یک ابزار متن‌باز برای تحلیل و بازیابی سطح پایین دیسک است.
-
-Slide 3: Features
-
-    English: Supports MBR/GPT, detects BitLocker, modular design.
-
-    Persian: پشتیبانی از MBR/GPT، شناسایی BitLocker، طراحی ماژولار.
-
-Slide 4: Technical Architecture
-
-    English: Modular structure with separate components for image, disk, and sector operations.
-
-    Persian: ساختار ماژولار با اجزای جداگانه برای عملیات تصویر، دیسک و سکتور.
-
-Slide 5: Use Cases
-
-    English: Ideal for data recovery, digital forensics, and educational purposes.
-
-    Persian: مناسب برای بازیابی داده، جرم‌شناسی دیجیتال و اهداف آموزشی.
-    www.slideshare.net+2ResearchGate+2LinkedIn+2
-
-Slide 6: Conclusion
-
-    English: BitRecovery empowers users with low-level disk analysis capabilities.
-
-    Persian: BitRecovery به کاربران امکان تحلیل سطح پایین دیسک را می‌دهد.
-    GetData Forensics
-
-For more detailed information and to access the source code, please visit the BitRecovery GitHub Repository.
-
-If you need further assistance or a customized presentation, feel free to ask!
-
-# 🧠 BitRecovery: Advanced Forensic Bit-Level Recovery Tool  
+    # 🧠 BitRecovery: Advanced Forensic Bit-Level Recovery Tool  
 🔍 ابزار پیشرفته بازیابی سطح-بیتی دیجیتال (تحلیلی و جرم‌شناسی)
 
 ---
@@ -140,7 +98,6 @@ This tool is ideal for forensic investigators, data recovery professionals, and 
 ---
 
 ## 📂 Project Structure | ساختار پروژه
-
 
 BitRecovery/
 ├── src/
@@ -225,7 +182,6 @@ BitRecovery/
 Sector 0:
 00000000 EB 52 90 4D 53 44 4F 53 35 2E 30 00 02 01 01 00 |.R.MSDOS5.0.....|
 00000010 02 E0 00 40 0B F0 09 00 ...
-...
 
 
 ---
@@ -267,6 +223,9 @@ make
 🚀 How to Use | نحوه استفاده
 Read Image and Analyze:
 
+🚀 How to Use | نحوه استفاده
+Read Image and Analyze:
+
 ./bitrecovery /path/to/disk.img
 
 Print Sector 0:
@@ -278,6 +237,7 @@ Print Sector 0:
 Salar Muhammadi
 GitHub: @blanckth
 Email: mhmdi.salar@gmail.com
+
 📜 License
 
 This project is licensed under the MIT License.
@@ -289,3 +249,8 @@ We welcome PRs, issues, and forensic research ideas.
 
 
 ---
+
+💡 اگر می‌خواهی این README به صورت خودکار در GitHub ست شود، کافیست آن را ذخیره کنی در:
+
+
+BitRecovery/README.md
