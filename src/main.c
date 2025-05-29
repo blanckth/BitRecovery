@@ -50,9 +50,10 @@ int main(int argc, char* argv[]) {
     }
     
     uint8_t buffer[img.file_stat.st_blksize];
-
+    img.lps++;
     size_t readRes = read_sector(disk, img.lps, buffer);
-    print_sector(buffer,disk->block_size,img.lps * disk->block_size);
+
+    print_sector(buffer,disk->block_size,img.lps);
     // if (read_sector(disk, 0, buffer) > 0) {
     //    printf("Read sector 0 successfully.\n");
     //} else {

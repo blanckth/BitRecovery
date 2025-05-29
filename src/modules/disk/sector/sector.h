@@ -60,7 +60,7 @@ typedef struct {
 // int sector_prt_hex( *img, const char *path); // Print Sector Hex
 // Print full sector in multiple formats
 size_t read_sector(DiskHandle *disk, uint64_t sector_num, uint8_t *buffer);
-void print_sector(const uint8_t *buffer, size_t size, uint64_t base_offset);
+void print_sector(const uint8_t *buffer, size_t size, uint64_t sector_num);
 //void image_close(ImageFile *img);
 //bool image_is_open(const ImageFile *img);
 //uint64_t image_get_size(const ImageFile *img);
