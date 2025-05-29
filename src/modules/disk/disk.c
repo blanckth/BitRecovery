@@ -1,26 +1,31 @@
 #include "disk.h"
-#include "./../image/image.h"
 
 // Initialize disk handle
-DiskHandle *open_disk(const char *path, const blksize_t blksize) {
+DiskHandle *open_disk(ImageFile *img) {
     DiskHandle *disk = malloc(sizeof(DiskHandle));
     if (!disk) return NULL;
-
-    disk->fd = open(path, O_RDONLY);
+    
+    disk->fd = open(img->path, O_RDONLY);
     if (disk->fd < 0) {
         free(disk);
         return NULL;
     }
-    blksize_t actual_size = blksize;
-#ifdef BLKSSZGET
-    ioctl(disk->fd, BLKSSZGET, &actual_size);
-#endif
-    disk->actual_size = actual_size;
-    disk->path = path;
-    disk->block_size = blksize;
+    size_t actual_size = 0;
+    unsigned int soft_block_size = 0, logical_block_size = 0, physical_block_size = 0;
+    int rcs = ioctl(disk->fd, BLKBSZGET, &soft_block_size);
+    int rcl = ioctl(disk->fd, BLKSSZGET, &logical_block_size);
+    int rcp = ioctl(disk->fd, BLKPBSZGET, &physical_block_size);
+    disk->path = img->path;
+    disk->block_size = img->sector_size ? img->sector_size : 512;
 
-    printf("# \t\t\tDisk Metadata:\n\n");
+    printf("# \t\t\tDisk Metadata:\n");
+    printf("# \t\t\t\tDisk Path: %s\n",disk->path);
+    printf("# \t\t\t\tDisk Name: %s\n",img->filename);
     printf("# \t\t\t\tDisk File Descriptor: %d\n",disk->fd);
+    printf("# \t\t\t\tSoft block size: %u\n", soft_block_size);
+    printf("# \t\t\t\tLogical block size: %u\n", logical_block_size);
+    printf("# \t\t\t\tPhysical block size: %u\n", physical_block_size);
+    printf("# \t\t\t\tDisk Block Size: %d\n\n",disk->block_size);
     return disk;
 }
 
@@ -30,18 +35,3 @@ void close_disk(DiskHandle *disk) {
     free(disk);
 }
 
-// Read a sector
-size_t read_sector(DiskHandle *disk, uint64_t sector_num, uint8_t *buffer){
-    if (!disk || disk->fd < 0 || !buffer) return 0;
-    off_t offset = sector_num * disk->block_size;
-    if (lseek(disk->fd, offset, SEEK_SET) < 0) {
-        perror("lseek failed");
-        return 0;
-    }
-    ssize_t bytes_read = read(disk->fd, buffer, disk->block_size);
-    if (bytes_read < 0) {
-        perror("read failed");
-        return 0;
-    }
-    return (size_t)bytes_read;
-}

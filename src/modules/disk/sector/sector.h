@@ -2,7 +2,7 @@
 
 #ifndef SECTOR_H
 #define SECTOR_H
-
+#include "./../disk.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <stddef.h>
+#include <ctype.h>
 
 #define MAX_SIGNATURE_NAME 32
 #define BYTES_PER_LINE 16
@@ -56,12 +57,13 @@ typedef struct {
 //};
 
 // Function Prototypes
-int sector_prt_hex( *img, const char *path); // Print Sector Hex
+// int sector_prt_hex( *img, const char *path); // Print Sector Hex
 // Print full sector in multiple formats
+size_t read_sector(DiskHandle *disk, uint64_t sector_num, uint8_t *buffer);
 void print_sector(const uint8_t *buffer, size_t size, uint64_t base_offset);
-void image_close(ImageFile *img);
-bool image_is_open(const ImageFile *img);
-uint64_t image_get_size(const ImageFile *img);
+//void image_close(ImageFile *img);
+//bool image_is_open(const ImageFile *img);
+//uint64_t image_get_size(const ImageFile *img);
 
 
 #endif

@@ -17,6 +17,7 @@
 
 typedef struct {
     const char *path;                   // Full path to image file
+    const char *filename;               // Image File Name
     struct stat file_stat;              // Full stat information
     FILE *fp;                           // File pointer (standard I/O)
     time_t open_time;                   // Timestamp when file was opened
@@ -54,6 +55,7 @@ typedef struct {
 //};
 
 // Function Prototypes
+void extractFilename(const char *fullpath, char *filename);
 int image_open(ImageFile *img, const char *path);
 void image_close(ImageFile *img);
 bool image_is_open(const ImageFile *img);

@@ -25,6 +25,9 @@ int image_open(ImageFile *img, const char *path) {
 
     // Initialize ImageFile structure
     img->path = path;
+    char *filename;
+    extractFilename(path, filename);
+    img->filename = filename;
     img->fp = fp;
     img->open_time = time(NULL);
     img->opened = true;
@@ -49,6 +52,7 @@ int image_open(ImageFile *img, const char *path) {
     char tstrbuf[64];
     format_time(img->open_time, tstrbuf, sizeof(tstrbuf));
     printf("# \t\tFile Open Timestamp: %s\n", tstrbuf); // Timestamp when file was opened
+    printf("# \t\tFilename: %s\n", img->filename); // Timestamp when file was opened
     printf("# \t\tResume Sector: %d\n",img->lps +1);
     printf("# \t\tSector Block Size: %d\n",img->sector_size);
     if (img->is_mbr)
@@ -96,4 +100,15 @@ bool image_is_open(const ImageFile *img) {
 
 uint64_t image_get_size(const ImageFile *img) {
     return img ? img->file_stat.st_size : 0;
+}
+void extractFilename(const char *fullpath, char *filename) {
+    const char *separator = strrchr(fullpath, '/'); // Find last '/'
+    if (!separator) {
+        separator = strrchr(fullpath, '\\'); // If '/' not found, find last '\'
+    }
+    if (separator) {
+        strcpy(filename, separator + 1); // Copy filename after separator
+    } else {
+        strcpy(filename, fullpath); // If no separator, copy the whole path
+    }
 }

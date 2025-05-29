@@ -1,7 +1,7 @@
 // /src/modules/disk/disk.h
 #ifndef DISK_H
 #define DISK_H
-
+#include "./../image/image.h"
 #include <stdint.h>
 #include <stddef.h>
 #include <sys/types.h>
@@ -23,13 +23,7 @@ typedef struct {
 } DiskHandle;
 
 // Initialize disk handle
-DiskHandle *open_disk(const char *path, const blksize_t blksize);
-
-// Read a sector
-size_t read_sector(DiskHandle *disk, uint64_t sector_num, uint8_t *buffer);
-
-// Read multiple sectors
-size_t read_sectors(DiskHandle *disk, uint64_t start_sector, size_t count, uint8_t *buffer);
+DiskHandle *open_disk(ImageFile *img);
 
 // Close disk
 void close_disk(DiskHandle *disk);

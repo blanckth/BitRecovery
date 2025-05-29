@@ -1,6 +1,9 @@
 #include "utils/times/times.h"
-#include "modules/disk/disk.h"
 #include "modules/image/image.h"
+#include "modules/disk/disk.h"
+#include "modules/disk/sector/sector.h"
+
+
 
 #define DEFAULT_SECTOR_SIZE 512
 
@@ -40,15 +43,16 @@ int main(int argc, char* argv[]) {
     // Loading Disk
     printf("# \t\tLoading Disk:\n");
 
-    DiskHandle *disk = open_disk(imgpath, img.sector_size);             // Init DiskHandle Object
+    DiskHandle *disk = open_disk(&img);             // Init DiskHandle Object
     if (!disk) {
         perror("Failed to open disk");
         return 1;
     }
-
+    
     uint8_t buffer[img.file_stat.st_blksize];
 
     size_t readRes = read_sector(disk, img.lps, buffer);
+    print_sector(buffer,disk->block_size,img.lps * disk->block_size);
     // if (read_sector(disk, 0, buffer) > 0) {
     //    printf("Read sector 0 successfully.\n");
     //} else {
