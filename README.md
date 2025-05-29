@@ -102,46 +102,46 @@ utils/times/times.c & times.h
 
 🧪 Sample Output
 
-# Application Start Running :  ./bitrecovery  /dev/sda
-# 
-#     Loading Image File :        /dev/sda
-#         File Open Timestamp: 2025-05-29 23:57:16
-#         Filename: sda
-#         Resume Sector: 0
-#         Sector Block Size: 512
-#         Partitioning scheme: MBR (Master Boot Record)
-#         BitLocker presence: Not found
-# 
-#         File Metadata:
-#             Inode: 12345678
-#             Device ID: 2049
-#             UID (Owner): 0
-#             GID (Group): 0
-#             File Size: 500107862016 bytes
-#             Permissions: 644 (octal)
-#             Last Access Time: 2025-05-29 22:00:00
-#             Last Modification Time: 2025-05-29 21:00:00
-#             Last Status Change Time: 2025-05-29 20:00:00
-#             I/O Block Size: 4096 bytes
-#             Block Count: 976773168 Blocks
-# 
-#     Loading Disk:
-#         Disk Metadata:
-#             Disk Path: /dev/sda
-#             Disk Name: sda
-#             Disk File Descriptor: 3
-#             Soft block size: 512
-#             Logical block size: 512
-#             Physical block size: 4096
-#             Disk Block Size: 512
-# 
-#         Loading Sectors:
-#             Read sector 0 successfully.
-#             Dumping 1 Sector(s) (512 bytes):
-#             ============================ Sector 0 ============================
-#             00000000  eb 3c 90 4d 53 44 4f 53 35 2e 30 00 02 08 00 00   .<.MSDOS5.0.....
-#             00000010  02 00 00 00 00 f8 00 00 3f 00 ff 00 3f 00 00 00   ......?..?.?...
-#             ...
+#. Application Start Running :  ./bitrecovery  /dev/sda
+#. 
+#.     Loading Image File :        /dev/sda
+#.         File Open Timestamp: 2025-05-29 23:57:16
+#.         Filename: sda
+#.         Resume Sector: 0
+#.         Sector Block Size: 512
+#.         Partitioning scheme: MBR (Master Boot Record)
+#.         BitLocker presence: Not found
+#. 
+#.         File Metadata:
+#.             Inode: 12345678
+#.             Device ID: 2049
+#.             UID (Owner): 0
+#.             GID (Group): 0
+#.             File Size: 500107862016 bytes
+#.             Permissions: 644 (octal)
+#.             Last Access Time: 2025-05-29 22:00:00
+#.             Last Modification Time: 2025-05-29 21:00:00
+#.             Last Status Change Time: 2025-05-29 20:00:00
+#.             I/O Block Size: 4096 bytes
+#.             Block Count: 976773168 Blocks
+#. 
+#.     Loading Disk:
+#.         Disk Metadata:
+#.             Disk Path: /dev/sda
+#.             Disk Name: sda
+#.             Disk File Descriptor: 3
+#.             Soft block size: 512
+#.             Logical block size: 512
+#.             Physical block size: 4096
+#.             Disk Block Size: 512
+#. 
+#.         Loading Sectors:
+#.             Read sector 0 successfully.
+#.             Dumping 1 Sector(s) (512 bytes):
+#.             ============================ Sector 0 ============================
+#.             00000000  eb 3c 90 4d 53 44 4f 53 35 2e 30 00 02 08 00 00   .<.MSDOS5.0.....
+#.             00000010  02 00 00 00 00 f8 00 00 3f 00 ff 00 3f 00 00 00   ......?..?.?...
+#.             ...
 
 🧠 Notes
 
