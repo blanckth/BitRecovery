@@ -123,3 +123,169 @@ Slide 6: Conclusion
 For more detailed information and to access the source code, please visit the BitRecovery GitHub Repository.
 
 If you need further assistance or a customized presentation, feel free to ask!
+
+# 🧠 BitRecovery: Advanced Forensic Bit-Level Recovery Tool  
+🔍 ابزار پیشرفته بازیابی سطح-بیتی دیجیتال (تحلیلی و جرم‌شناسی)
+
+---
+
+## 📌 Overview | نمای کلی
+
+**BitRecovery** is a modular, low-level forensic disk recovery and analysis tool designed to extract and interpret raw disk data at the bit and sector level.  
+This tool is ideal for forensic investigators, data recovery professionals, and researchers interested in low-level disk structures such as MBR, GPT, and BitLocker artifacts.
+
+**BitRecovery** یک ابزار متن‌باز و ماژولار برای تحلیل و بازیابی اطلاعات از سطح پایین‌ترین بخش‌های دیسک (سکتورها و بیت‌ها) است.  
+این ابزار برای متخصصان جرم‌شناسی دیجیتال، بازیابی اطلاعات و پژوهشگران ساختارهای سطح پایین دیسک مثل MBR، GPT و آرتیفکت‌های BitLocker بسیار کاربردی است.
+
+---
+
+## 📂 Project Structure | ساختار پروژه
+
+
+BitRecovery/
+├── src/
+│ ├── main.c # Entry point of the application | نقطه شروع برنامه
+│ └── modules/
+│ ├── image/ # Image file handlers | مدیریت فایل‌های ایمیج
+│ ├── disk/ # Disk access and metadata | اطلاعات و دسترسی دیسک
+│ │ └── sector/ # Sector reading/printing | خواندن و چاپ سکتورها
+│
+├── README.md # This file | این فایل
+├── LICENSE
+└── ...
+
+
+---
+
+## 🔧 Features | ویژگی‌ها
+
+### ✅ Sector-Level Analysis | تحلیل در سطح سکتور
+- Reads raw sectors directly from disk or image files.
+- نمایش سکتورها به صورت hex/ascii با فرمت تحلیل‌پذیر.
+
+### ✅ Partition Scheme Detection | تشخیص نوع پارتیشن
+- Detects both **MBR** and **GPT**.
+- پشتیبانی از شناسایی و پارس ساختارهای MBR و GPT.
+
+### ✅ BitLocker Detection | شناسایی BitLocker
+- Locates BitLocker-encrypted volumes by analyzing known signatures.
+- بررسی و کشف رمزنگاری BitLocker با تحلیل سیگنچرهای شناخته‌شده.
+
+### ✅ Disk Metadata Analysis | تحلیل متادیتای دیسک
+- Retrieves metadata like logical/physical sector sizes, file size, inode, and more.
+- استخراج اطلاعات سیستمی فایل ایمیج، سایز سکتورها، inode و ...
+
+### ✅ Modular Design | طراحی ماژولار
+- Each function is separated by concern (image, disk, sector).
+- طراحی ساختارمند برای توسعه‌پذیری و دیباگ آسان.
+
+---
+
+## 📘 Modules Overview | مروری بر ماژول‌ها
+
+### 🔹 `main.c`
+- Argument parser and orchestrator for calling the image and disk modules.
+- پارسر آرگومان‌ها و کنترل اصلی اجرای برنامه.
+
+---
+
+### 🔹 `modules/image/image.c`  
+**Image Module | ماژول تصویر**
+- Opens disk image (`/dev/sdX` or `.img` file).
+- Retrieves file-level metadata (permissions, timestamps, owner info, etc).
+- Detects partition style (MBR/GPT) by inspecting sector 0.
+- Detects BitLocker headers (FVE metadata signatures).
+
+> تحلیل سطح فایل ایمیج، تشخیص نوع پارتیشن، بررسی سیگنچرهای BitLocker
+
+---
+
+### 🔹 `modules/disk/disk.c`  
+**Disk Module | ماژول دیسک**
+- Opens a low-level handle to the disk or image.
+- Gets sector size info via `ioctl()`.
+- Handles clean disk closing and error logging.
+
+> بازکردن هندل سطح پایین دیسک، دریافت سایز فیزیکی/منطقی سکتور و مدیریت خطا
+
+---
+
+### 🔹 `modules/disk/sector/sector.c`  
+**Sector Module | ماژول سکتورها**
+- Reads a sector (default: 512 bytes) from any offset.
+- Prints formatted hex/ascii dumps for forensic viewing.
+- Modular output support for later log integration.
+
+> خواندن سکتورهای خام و نمایش تحلیلی با فرمت قابل‌خواندن برای تحلیلگرها
+
+---
+
+## 🧪 Sample Output | نمونه خروجی
+
+Sector 0:
+00000000 EB 52 90 4D 53 44 4F 53 35 2E 30 00 02 01 01 00 |.R.MSDOS5.0.....|
+00000010 02 E0 00 40 0B F0 09 00 ...
+...
+
+
+---
+
+## 🎯 Use Cases | کاربردها
+
+| Use Case         | Description (English)                             | توضیح فارسی                            |
+|------------------|----------------------------------------------------|----------------------------------------|
+| 🔍 Forensics      | Analyze low-level disk data for hidden evidence    | بررسی داده‌های سطح پایین دیسک برای شواهد |
+| 💾 Data Recovery  | Extract data from corrupted MBR/GPT/BitLocker     | بازیابی داده از ساختارهای آسیب‌دیده     |
+| 🧑‍🏫 Education      | Learn disk internals with real-world examples     | آموزش ساختارهای واقعی دیسک              |
+
+---
+
+## 🔐 BitLocker Signature Detection
+
+BitRecovery detects the presence of BitLocker-encrypted volumes by inspecting early sectors (FVE metadata) for known GUIDs and magic constants.  
+
+BitLocker volumes typically contain structures like:
+
+0xFVE Metadata Header
+Volume Master Key (VMK)
+Encrypted Sector Key (ESK)
+
+
+> ابزار با بررسی GUIDها و سیگنچرهای مشخص در سکتورهای ابتدایی، رمزنگاری BitLocker را تشخیص می‌دهد.
+
+---
+
+## 🏁 How to Build | نحوه کامپایل
+
+```bash
+git clone https://github.com/blanckth/BitRecovery.git
+cd BitRecovery
+make
+
+مطمئن شوید GCC و ابزارهای بیسیک build روی سیستم لینوکس نصب هستند.
+
+🚀 How to Use | نحوه استفاده
+Read Image and Analyze:
+
+./bitrecovery /path/to/disk.img
+
+Print Sector 0:
+
+./bitrecovery -s 0 /path/to/disk.img
+
+👨‍💻 Author | نویسنده
+
+Salar Muhammadi
+GitHub: @blanckth
+Email: mhmdi.salar@gmail.com
+📜 License
+
+This project is licensed under the MIT License.
+🤝 Contributions
+
+We welcome PRs, issues, and forensic research ideas.
+
+پیشنهادات، باگ ریپورت‌ها و ایده‌های شما برای توسعه ابزار جرم‌شناسی دیجیتال BitRecovery با آغوش باز پذیرفته می‌شود.
+
+
+---
