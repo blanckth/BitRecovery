@@ -1,14 +1,14 @@
 #include "sector.h"
 
 // Read a sector
-size_t read_sector(DiskHandle *disk, uint64_t sector_num, uint8_t *buffer){
+size_t read_sector(DiskHandle *disk, uint64_t sector_num, size_t sector_size, uint8_t *buffer){
     if (!disk || disk->fd < 0 || !buffer) return 0;
-    off_t offset = sector_num * disk->block_size;
+    off_t offset = sector_num * sector_size;
     if (lseek(disk->fd, offset, SEEK_SET) < 0) {
         perror("lseek failed");
         return 0;
     }
-    ssize_t bytes_read = read(disk->fd, buffer, disk->block_size);
+    ssize_t bytes_read = read(disk->fd, buffer, sector_size);
     if (bytes_read < 0) {
         perror("read failed");
         return 0;

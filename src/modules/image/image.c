@@ -31,7 +31,7 @@ int image_open(ImageFile *img, const char *path) {
     img->open_time = time(NULL);
     img->opened = true;
     img->file_stat = st;
-    img->lps = -1;
+    img->lps = 0;
     img->sector_size = st.st_blksize;
     memset(img->first_bytes, 0, sizeof(img->first_bytes));
     // Read first 16 bytes of image file
@@ -52,7 +52,7 @@ int image_open(ImageFile *img, const char *path) {
     format_time(img->open_time, tstrbuf, sizeof(tstrbuf));
     printf("# \t\tFile Open Timestamp: %s\n", tstrbuf); // Timestamp when file was opened
     printf("# \t\tFilename: %s\n", img->filename); // Timestamp when file was opened
-    printf("# \t\tResume Sector: %d\n",img->lps +1);
+    printf("# \t\tResume Sector: %d\n",img->lps);
     printf("# \t\tSector Block Size: %d\n",img->sector_size);
     if (img->is_mbr)
     printf("# \t\tPartitioning scheme: MBR (Master Boot Record)\n");

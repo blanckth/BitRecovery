@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
 
     // Program Settings
     char* progname = argv[0];
-    if (argc != 2){
+    if (argc < 2 || argc > 4){
         Usage(progname);
         return 1001; // App Error 1001 : Invalid Arguments
     }
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     ImageFile img;                                                      // Open ImageFile Object
     int initRes = image_open(&img, imgpath);                            // Read Image File Information
     if ( initRes != 0 ) {
-        printf("# \t\tImage File Error : \t\t%d", initRes);
+        printf("\t\tImage File Error : \t\t%d", initRes);
     } 
 
     // Close Image File
@@ -49,16 +49,19 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     printf("# \t\tLoading Sectors:\n");
-    uint8_t buffer[img.file_stat.st_blksize];
-    img.lps++;
-    size_t readRes = read_sector(disk, img.lps, buffer);
+
+    uint64_t cur_sector_num = (argc > 2) ? strtoull(argv[2], NULL, 10) : img.lps;
+    uint64_t cur_sector_size = (argc > 3) ? strtoull(argv[3], NULL, 10) : disk->block_size;
+    uint8_t buffer[cur_sector_size];
+
+    size_t readRes = read_sector(disk, cur_sector_num, cur_sector_size, buffer);
     if (readRes > 0) {
-        printf("# \t\t\tRead sector %d successfully.\n",img.lps);
+        printf("# \t\t\tRead sector %llu successfully.\n",(unsigned long long)cur_sector_num);
     } else {
-        printf("# \t\t\tFailed to read sector : %d\n",img.lps);
+        printf("\t\t\tFailed to read sector : %llu\n",(unsigned long long)cur_sector_num);
     }
-    print_sector(buffer,img.sector_size,img.lps);
-  
+    print_sector(buffer,cur_sector_size,cur_sector_num);
+    
 
     close_disk(disk);
     img.opened = false;
