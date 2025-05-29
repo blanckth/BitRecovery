@@ -4,7 +4,7 @@ BitRecovery
 
 BitRecovery is an advanced forensic tool designed for low-level disk analysis and recovery. It enables investigators and data recovery professionals to examine disk images at the sector level, identify partitioning schemes (MBR/GPT), detect encryption signatures (e.g., BitLocker), and extract critical metadata.
 📁 Project Structure
-
+`
 BitRecovery/
 ├── src/
 │   ├── main.c
@@ -23,7 +23,7 @@ BitRecovery/
 │           ├── times.h
 │           └── times.c
 └── README.md
-
+`
 ⚙️ Build Instructions
 
 To compile the project:
@@ -46,9 +46,9 @@ Ensure that you have the necessary build tools installed (e.g., gcc, make).
     Sector Count: (Optional) Number of sectors to read (default: 1).
 
 Example:
-
+`
 ./bitrecovery /dev/sda 0 512 1
-
+`
 🧩 Module Descriptions
 main.c
 
@@ -101,6 +101,7 @@ utils/times/times.c & times.h
     Formatted Output: Display sector data in a readable hex and ASCII format.
 
 🧪 Sample Output
+`
 '''
 #. Application Start Running :  ./bitrecovery  /dev/sda
 #. 
@@ -143,6 +144,7 @@ utils/times/times.c & times.h
 #.             00000010  02 00 00 00 00 f8 00 00 3f 00 ff 00 3f 00 00 00   ......?..?.?...
 #.             ...
 '''
+`
 🧠 Notes
 
     Ensure you have the necessary permissions to access raw disk devices.
@@ -164,7 +166,7 @@ This project is licensed under the MIT License.
 
 بیت‌ریکاوری یک ابزار پیشرفته برای تحلیل و بازیابی داده‌ها در سطح پایین دیسک است. این ابزار به متخصصان بازیابی داده و کارشناسان جرم‌شناسی دیجیتال امکان می‌دهد تا تصاویر دیسک را در سطح سکتور بررسی کرده، ساختارهای پارتیشن‌بندی (MBR/GPT) را شناسایی کرده، امضاهای رمزنگاری (مانند BitLocker) را تشخیص داده و متادیتای حیاتی را استخراج کنند.
 📁 ساختار پروژه
-
+`
 BitRecovery/
 ├── src/
 │   ├── main.c
@@ -183,7 +185,7 @@ BitRecovery/
 │           ├── times.h
 │           └── times.c
 └── README.md
-
+`
 ⚙️ دستورالعمل ساخت
 
 برای کامپایل پروژه:
@@ -259,3 +261,5 @@ utils/times/times.c و times.h
     استخراج متادیتا: بازیابی متادیتای دقیق فایل و دیسک.
 
     خروجی فرمت‌شده: نمایش داده‌های سکتور به صورت قابل خواندن در فرمت هگزادسیمال و ASCII.
+
+</dev>
