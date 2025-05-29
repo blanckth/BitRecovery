@@ -101,7 +101,7 @@ utils/times/times.c & times.h
     Formatted Output: Display sector data in a readable hex and ASCII format.
 
 🧪 Sample Output
-
+'''
 #. Application Start Running :  ./bitrecovery  /dev/sda
 #. 
 #.     Loading Image File :        /dev/sda
@@ -142,7 +142,7 @@ utils/times/times.c & times.h
 #.             00000000  eb 3c 90 4d 53 44 4f 53 35 2e 30 00 02 08 00 00   .<.MSDOS5.0.....
 #.             00000010  02 00 00 00 00 f8 00 00 3f 00 ff 00 3f 00 00 00   ......?..?.?...
 #.             ...
-
+'''
 🧠 Notes
 
     Ensure you have the necessary permissions to access raw disk devices.
