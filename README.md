@@ -134,9 +134,11 @@ For more detailed information and to access the source code, please visit the Bi
 **BitRecovery** is a modular, low-level forensic disk recovery and analysis tool designed to extract and interpret raw disk data at the bit and sector level.  
 This tool is ideal for forensic investigators, data recovery professionals, and researchers interested in low-level disk structures such as MBR, GPT, and BitLocker artifacts.
 
-**BitRecovery** یک ابزار متن‌باز و ماژولار برای تحلیل و بازیابی اطلاعات از سطح پایین‌ترین بخش‌های دیسک (سکتورها و بیت‌ها) است.  
-این ابزار برای متخصصان جرم‌شناسی دیجیتال، بازیابی اطلاعات و پژوهشگران ساختارهای سطح پایین دیسک مثل MBR، GPT و آرتیفکت‌های BitLocker بسیار کاربردی است.
+**BitRecovery** <div dir="rtl">
 
+>یک ابزار متن‌باز و ماژولار برای تحلیل و بازیابی اطلاعات از سطح پایین‌ترین بخش‌های دیسک (سکتورها و بیت‌ها) است.  
+این ابزار برای متخصصان جرم‌شناسی دیجیتال، بازیابی اطلاعات و پژوهشگران ساختارهای سطح پایین دیسک مثل MBR، GPT و آرتیفکت‌های BitLocker بسیار کاربردی است.
+</div
 ---
 
 ## 📂 Project Structure | ساختار پروژه
