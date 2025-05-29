@@ -1,10 +1,41 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -g
-SRC = main.c modules/disk/disk.c
-OUT = recover
+# BitRecovery Makefile (Optimized & Modular)
+CC      := gcc
+CFLAGS  := -Wall -Wextra -std=c99 -g
+LDFLAGS := 
 
-all:
-	$(CC) $(CFLAGS) -o $(OUT) $(SRC)
+# Output binary
+OUT     := ../test/recover
 
+# Source files
+SRC := \
+	main.c \
+	utils/times/times.c \
+	modules/image/image.c \
+	modules/disk/disk.c \
+	modules/disk/sector/sector.c
+
+# Object files
+OBJ := $(SRC:.c=.o)
+
+# Default target
+all: $(OUT)
+
+# Linking
+$(OUT): $(OBJ)
+	@mkdir -p $(dir $(OUT))
+	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LDFLAGS)
+	@echo "✅ Build complete: $(OUT)"
+
+# Compilation of each .c file to .o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean object and binary
 clean:
-	rm -f $(OUT)
+	rm -f $(OBJ) $(OUT)
+	@echo "🧹 Cleaned build files."
+
+# Rebuild everything from scratch
+rebuild: clean all
+
+.PHONY: all clean rebuild

@@ -42,6 +42,7 @@ int image_open(ImageFile *img, const char *path) {
         // Still usable, but warn in logs if needed
     }
     img->is_mbr = (img->first_bytes[510] == 0x55 && img->first_bytes[511] == 0xAA)? true : false;
+    //img->is_bios = ()
     img->is_gpt = (memcmp(&img->first_bytes[512], "EFI PART", 8) == 0)? true : false;
     img->has_bitlocker = (memcmp(&img->first_bytes[3], "-FVE-FS-", 8) == 0)? true : false;
 
@@ -55,16 +56,20 @@ int image_open(ImageFile *img, const char *path) {
     printf("# \t\tFilename: %s\n", img->filename); // Timestamp when file was opened
     printf("# \t\tResume Sector: %d\n",img->lps);
     printf("# \t\tSector Block Size: %d\n",img->sector_size);
-    if (img->is_mbr)
-    printf("# \t\tPartitioning scheme: MBR (Master Boot Record)\n");
-    else if (img->is_gpt)
+    if (img->is_gpt && img->is_mbr)
+    printf("# \t\tPartitioning header: Protected MBR \n");
+    if (img->is_gpt)
     printf("# \t\tPartitioning scheme: GPT (GUID Partition Table)\n");
-    else
+    printf("# \t\tPartitioning scheme: MBR (Master Boot Record)\n");
+    if (!img->is_gpt && img->is_mbr)
+    printf("# \t\tPartitioning scheme: MBR (Master Boot Record)\n");
+    if (!img->is_gpt && !img->is_mbr)
     printf("# \t\tPartitioning scheme: UNKNOWN\n");
     if (img->has_bitlocker)
     printf("# \t\tBitLocker presence: Found\n");
     else
     printf("# \t\tBitLocker presence: Not found\n");
+
     // Printing Image File Metadata
     printf("#\n# \t\tFile Metadata:\n");
     printf("# \t\t\tInode: %lu\n", (unsigned long)img->file_stat.st_ino);
