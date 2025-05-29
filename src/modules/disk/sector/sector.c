@@ -16,24 +16,22 @@ size_t read_sector(DiskHandle *disk, uint64_t sector_num, uint8_t *buffer){
     return (size_t)bytes_read;
 }
 
-//size_t read_sector(DiskHandle *disk, uint64_t sector_num, uint8_t *buffer) {
-//    off_t offset = sector_num * disk->sector_size;
-//    if (lseek(disk->fd, offset, SEEK_SET) == (off_t)-1) return -1;
-//    return read(disk->fd, buffer, disk->sector_size);
-//}
 
 //size_t read_sectors(DiskHandle *disk, uint64_t start_sector, size_t count, uint8_t *buffer) {
 //    off_t offset = start_sector * disk->sector_size;
 //    if (lseek(disk->fd, offset, SEEK_SET) == (off_t)-1) return -1;
 //    return read(disk->fd, buffer, disk->sector_size * count);
 //}
+
+
 void print_sector(const uint8_t *buffer, size_t size, uint64_t sector_num) {
     if (!buffer || size == 0) return;
     uint64_t base_offset = sector_num * size;
     printf("# \t\t\tDumping Sector (%zu bytes):\n", size);
-    printf("\n==== Sector %lu ====\n", sector_num);
+    printf("#\n# \t\t\t\t============================ Sector %lu ============================\n", sector_num);
+
     for (size_t i = 0; i < size; i += BYTES_PER_LINE) {
-        printf("%08lx  ", (unsigned long)(base_offset + i));
+        printf("# \t\t\t\t%08lx  ", (unsigned long)(base_offset + i));
 
         // Hex bytes
         for (size_t j = 0; j < BYTES_PER_LINE; ++j) {

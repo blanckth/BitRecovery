@@ -1,5 +1,4 @@
 #include "image.h"
-#include "./../../utils/times/times.h"
 
 static int fetch_file_stat(FILE *fp, struct stat *st) {
     if (!fp || !st) return -1;
@@ -66,7 +65,7 @@ int image_open(ImageFile *img, const char *path) {
     else
     printf("# \t\tBitLocker presence: Not found\n");
     // Printing Image File Metadata
-    printf("\n# \t\tFile Metadata:\n");
+    printf("#\n# \t\tFile Metadata:\n");
     printf("# \t\t\tInode: %lu\n", (unsigned long)img->file_stat.st_ino);
     printf("# \t\t\tDevice ID: %lu\n", (unsigned long)img->file_stat.st_dev);
     printf("# \t\t\tUID (Owner): %u\n", img->file_stat.st_uid);
@@ -80,7 +79,7 @@ int image_open(ImageFile *img, const char *path) {
     format_time(img->file_stat.st_ctime, tstrbuf, sizeof(tstrbuf));
     printf("# \t\t\tLast Status Change Time: %s\n", tstrbuf);
     printf("# \t\t\tI/O Block Size: %ld bytes\n", (long)img->file_stat.st_blksize);
-    printf("# \t\t\tBlock Count: %ld Blocks\n\n", (long)img->file_stat.st_blocks);
+    printf("# \t\t\tBlock Count: %ld Blocks\n#\n", (long)img->file_stat.st_blocks);
     // Printing Image File Metadata
 
     return 0; // Success

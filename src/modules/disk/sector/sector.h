@@ -2,7 +2,7 @@
 
 #ifndef SECTOR_H
 #define SECTOR_H
-#include "./../disk.h"
+
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -14,6 +14,8 @@
 #include <time.h>
 #include <stddef.h>
 #include <ctype.h>
+
+#include "../disk.h"
 
 #define MAX_SIGNATURE_NAME 32
 #define BYTES_PER_LINE 16

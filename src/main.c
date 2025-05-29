@@ -27,10 +27,10 @@ int main(int argc, char* argv[]) {
     char* imgpath = argv[1];
 
     // Application Start
-    printf("# Application Start Running : \t%s\t%s\n\n", progname, imgpath);
+    printf("# Application Start Running : \t%s\t%s\n#\n", progname, imgpath);
 
     // Loading Image File
-    printf("# \tLoading Image File : \t\t%s\n\n", imgpath);
+    printf("# \tLoading Image File : \t\t%s\n#\n", imgpath);
     ImageFile img;                                                      // Open ImageFile Object
     int initRes = image_open(&img, imgpath);                            // Read Image File Information
     if ( initRes != 0 ) {
@@ -41,24 +41,24 @@ int main(int argc, char* argv[]) {
     image_close(&img);
     
     // Loading Disk
-    printf("# \t\tLoading Disk:\n");
+    printf("# \tLoading Disk:\n");
 
     DiskHandle *disk = open_disk(&img);             // Init DiskHandle Object
     if (!disk) {
-        perror("Failed to open disk");
+        perror("\t\tFailed to open disk");
         return 1;
     }
-    
+    printf("# \t\tLoading Sectors:\n");
     uint8_t buffer[img.file_stat.st_blksize];
     img.lps++;
     size_t readRes = read_sector(disk, img.lps, buffer);
-
-    print_sector(buffer,disk->block_size,img.lps);
-    // if (read_sector(disk, 0, buffer) > 0) {
-    //    printf("Read sector 0 successfully.\n");
-    //} else {
-    //    printf("Failed to read sector.\n");
-    //}
+    if (readRes > 0) {
+        printf("# \t\t\tRead sector %d successfully.\n",img.lps);
+    } else {
+        printf("# \t\t\tFailed to read sector : %d\n",img.lps);
+    }
+    print_sector(buffer,img.sector_size,img.lps);
+  
 
     close_disk(disk);
     img.opened = false;

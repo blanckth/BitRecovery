@@ -18,14 +18,14 @@ DiskHandle *open_disk(ImageFile *img) {
     disk->path = img->path;
     disk->block_size = img->sector_size ? img->sector_size : 512;
 
-    printf("# \t\t\tDisk Metadata:\n");
-    printf("# \t\t\t\tDisk Path: %s\n",disk->path);
-    printf("# \t\t\t\tDisk Name: %s\n",img->filename);
-    printf("# \t\t\t\tDisk File Descriptor: %d\n",disk->fd);
-    printf("# \t\t\t\tSoft block size: %u\n", soft_block_size);
-    printf("# \t\t\t\tLogical block size: %u\n", logical_block_size);
-    printf("# \t\t\t\tPhysical block size: %u\n", physical_block_size);
-    printf("# \t\t\t\tDisk Block Size: %d\n\n",disk->block_size);
+    printf("#\n# \t\tDisk Metadata:\n");
+    printf("# \t\t\tDisk Path: %s\n",disk->path);
+    printf("# \t\t\tDisk Name: %s\n",img->filename);
+    printf("# \t\t\tDisk File Descriptor: %d\n",disk->fd);
+    printf("# \t\t\tSoft block size: %u\n", soft_block_size);
+    printf("# \t\t\tLogical block size: %u\n", logical_block_size);
+    printf("# \t\t\tPhysical block size: %u\n", physical_block_size);
+    printf("# \t\t\tDisk Block Size: %d\n#\n",disk->block_size);
     return disk;
 }
 

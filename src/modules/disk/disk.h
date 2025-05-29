@@ -1,7 +1,7 @@
 // /src/modules/disk/disk.h
 #ifndef DISK_H
 #define DISK_H
-#include "./../image/image.h"
+
 #include <stdint.h>
 #include <stddef.h>
 #include <sys/types.h>
@@ -12,6 +12,7 @@
 #include <linux/fs.h>
 #include <sys/ioctl.h>
 #include <ctype.h>
+#include "../image/image.h"
 
 #define SECTOR_SIZE 4096
 

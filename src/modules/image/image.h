@@ -3,6 +3,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
+
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -12,6 +13,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <time.h>
+#include "../../utils/times/times.h"
+
 
 #define MAX_SIGNATURE_NAME 32
 
