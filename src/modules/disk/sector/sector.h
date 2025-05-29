@@ -62,11 +62,12 @@ typedef struct {
 
 // Reads a single sector from the disk into the buffer
 size_t read_sector(DiskHandle *disk, uint64_t sector_num, size_t sector_size, uint8_t *buffer);
+size_t read_sectors(DiskHandle *disk, uint64_t sector_num, size_t sector_size,uint64_t sector_count, uint8_t *buffer);
 
 // Optionally: reads multiple sectors
 
 // Pretty print a sector in both HEX and ASCII
-void print_sector(const uint8_t *buffer, size_t size, uint64_t sector_num);
+void print_sector(const uint8_t *buffer, size_t size, uint64_t sector_num, uint64_t sector_count);
 
 
 #endif
