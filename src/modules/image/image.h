@@ -17,6 +17,8 @@
 
 
 #define MAX_SIGNATURE_NAME 32
+#define DEFAULT_BLOCK_SIZE 512
+#define LARGESECTOR 4096
 
 typedef struct {
     const char *path;                   // Full path to image file
@@ -27,7 +29,7 @@ typedef struct {
     bool opened;                        // File open status
     blksize_t sector_size;              // Usually 512 bytes
     int lps;                            // Resume point last_processed_sector
-    uint8_t first_bytes[4096];          // First Block of image (e.g., for MBR/GPT check)
+    uint8_t first_bytes[LARGESECTOR];   // First Block of image (e.g., for MBR/GPT check)
     char signature[MAX_SIGNATURE_NAME]; // File signature (label)
     bool is_gpt;                        // GPT partitioning scheme
     bool is_mbr;                        // MBR partitioning scheme

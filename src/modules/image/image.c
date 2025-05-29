@@ -1,5 +1,7 @@
 #include "image.h"
 
+#define DEFAULT_BLOCK_SIZE 512
+
 static int fetch_file_stat(FILE *fp, struct stat *st) {
     if (!fp || !st) return -1;
     int fd = fileno(fp);
@@ -24,7 +26,7 @@ int image_open(ImageFile *img, const char *path) {
 
     // Initialize ImageFile structure
     img->path = path;
-    char *filename;
+    char *filename = malloc(strlen(path)+1);
     extractFilename(path, filename);
     img->filename = filename;
     img->fp = fp;
@@ -32,14 +34,13 @@ int image_open(ImageFile *img, const char *path) {
     img->opened = true;
     img->file_stat = st;
     img->lps = 0;
-    img->sector_size = st.st_blksize;
+    img->sector_size = DEFAULT_BLOCK_SIZE;
     memset(img->first_bytes, 0, sizeof(img->first_bytes));
     // Read first 16 bytes of image file
     size_t read_bytes = fread(img->first_bytes, 1, sizeof(img->first_bytes), fp);
     if (read_bytes < sizeof(img->first_bytes)) {
         // Still usable, but warn in logs if needed
     }
-    memset(img->signature, 0, sizeof(img->signature));
     img->is_mbr = (img->first_bytes[510] == 0x55 && img->first_bytes[511] == 0xAA)? true : false;
     img->is_gpt = (memcmp(&img->first_bytes[512], "EFI PART", 8) == 0)? true : false;
     img->has_bitlocker = (memcmp(&img->first_bytes[3], "-FVE-FS-", 8) == 0)? true : false;

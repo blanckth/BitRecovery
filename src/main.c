@@ -6,14 +6,14 @@
 
 
 #define DEFAULT_SECTOR_SIZE 512
-
+#define MAX_TIME_STRING_BUF 64
 void Usage(const char* progname);
 
 int main(int argc, char* argv[]) {
 
     // Time Settings
-    char tstrbuf[64];
-    format_time(time(NULL),tstrbuf,64);                                                    // Time String Buffer
+    char tstrbuf[MAX_TIME_STRING_BUF];
+    format_time(time(NULL),tstrbuf,MAX_TIME_STRING_BUF);                                                    // Time String Buffer
     printf("\nApplication Started at Local time: %s\n\n",tstrbuf);          // Print formatted time
 
     // Program Settings
@@ -27,7 +27,17 @@ int main(int argc, char* argv[]) {
     char* imgpath = argv[1];
 
     // Application Start
-    printf("# Application Start Running : \t%s\t%s\n#\n", progname, imgpath);
+    printf("# Application Start Running : ");
+    for(int a = 0; a < argc; a++){
+        printf("[ %s : %s ] ",
+                          (a == 0)? "App" : 
+                          (a == 1)? "Image":
+                          (a == 2)? "First Sector":
+                          (a == 3)? "Sector Size":
+                          (a == 4)? "Sector Count": "UNKNOWN",
+                          argv[a]);
+    }
+    printf("\n");
 
     // Loading Image File
     printf("# \tLoading Image File : \t\t%s\n#\n", imgpath);
@@ -50,29 +60,44 @@ int main(int argc, char* argv[]) {
     }
     printf("# \t\tLoading Sectors:\n");
 
-    uint64_t cur_sector_num = (argc > 2) ? strtoull(argv[2], NULL, 10) : img.lps;
-    uint64_t cur_sector_size = (argc > 3) ? strtoull(argv[3], NULL, 10) : disk->block_size;
-    uint64_t cur_sector_count = (argc > 4) ? strtoull(argv[4], NULL, 10) : 1;
 
-    uint8_t buffer[cur_sector_size * cur_sector_count];
+    // Init Sector Variables
+    uint64_t cur_sector_num = img.lps;
+    uint64_t cur_sector_size = disk->block_size;
+    uint64_t cur_sector_count = 1;
+    if (argc >= 3) cur_sector_num = strtoull(argv[2], NULL, 10)? strtoull(argv[2], NULL, 10) : img.lps;
+    printf("# \t\t\tFirst Sector : %lu, ",cur_sector_num);
+    if (argc >= 4) cur_sector_size = strtoull(argv[3], NULL, 10)? strtoull(argv[3], NULL, 10) : disk->block_size;
+    printf("Sector Size : %lu, ",cur_sector_size);
+    printf("Sector OFFSET : %lu, ",cur_sector_size * cur_sector_num);
+    if (argc >= 5) cur_sector_count = strtoull(argv[4], NULL, 10) ? strtoull(argv[4], NULL, 10) : 1;
+    printf("Sector Count : %lu, ",cur_sector_count);
+    printf("Buffer Size : %lu\n",cur_sector_count * cur_sector_size);
 
-
-    // size_t readRes = read_sector(disk, cur_sector_num, cur_sector_size, buffer);
+    // Init Sector Buffer
+    uint64_t total_buf_size = cur_sector_size * cur_sector_count;
+    uint8_t* buffer = malloc(total_buf_size);
+    if (!buffer) {
+    perror("malloc failed");
+    close_disk(disk);
+    return 1;
+}   
+    // Read Sectors
     size_t readRes = read_sectors(disk, cur_sector_num, cur_sector_size, cur_sector_count, buffer);
 
     if (readRes > 0) {
-        printf("# \t\t\tRead sector %llu successfully.\n",(unsigned long long)cur_sector_num);
+        printf("# \t\t\tRead sector(s) successfully.\n");
     } else {
-        printf("\t\t\tFailed to read sector : %llu\n",(unsigned long long)cur_sector_num);
+        printf("\t\t\tFailed to read sector(s)\n");
     }
     print_sector(buffer,cur_sector_size,cur_sector_num,cur_sector_count);
     
-
+    free(buffer);
     close_disk(disk);
     img.opened = false;
     return 0;
 }
 void Usage(const char* progname){
-    printf("\n# Usage : %s [ImagePath/DiskPath]\n", progname);
+    printf("\n# Usage : %s [ImagePath/DiskPath] [ [Sector Number] [ [Sector Size] [Sector Count] ] ]\n", progname);
     return;
 }
