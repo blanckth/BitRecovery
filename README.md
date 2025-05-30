@@ -140,7 +140,8 @@ utils/times/times.c & times.h
 #.             Disk Block Size: 512
 #. 
 #.         Loading Sectors:
-#.             Read sector 0 successfully.
+#.             First Sector : 0, Sector Size : 512, Sector OFFSET : 0, Sector Count : 1, Buffer Size : 512
+#.             Read sector(s) successfully.
 #.             Dumping 1 Sector(s) (512 bytes):
 #.             ============================ Sector 0 ============================
 #.             00000000  eb 3c 90 4d 53 44 4f 53 35 2e 30 00 02 08 00 00   .<.MSDOS5.0.....
@@ -275,7 +276,7 @@ utils/times/times.c و times.h
 
 BitRecovery برای بازیابی اطلاعات در سطح سکتور دیسک طراحی شده است. این نرم‌افزار قابلیت تشخیص، بررسی، لاگ‌برداری و تحلیل سکتورهای خام دیسک‌ها را دارد و به طور خاص برای شرایطی طراحی شده که دیسک آسیب دیده، رمزگذاری شده (مانند BitLocker)، یا حذف اطلاعات به صورت غیرقابل‌بازگشت انجام شده باشد.
 ⚙️ ساختار کلی پروژه
-``` bash
+``` 
 BitRecovery/
 ├── README.md
 ├── src/
