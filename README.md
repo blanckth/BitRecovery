@@ -6,7 +6,7 @@ BitRecovery
 
 BitRecovery is an advanced forensic tool designed for low-level disk analysis and recovery. It enables investigators and data recovery professionals to examine disk images at the sector level, identify partitioning schemes (MBR/GPT), detect encryption signatures (e.g., BitLocker), and extract critical metadata.
 📁 Project Structure
-`
+``` bash
 BitRecovery/
 ├── src/
 │   ├── main.c
@@ -25,15 +25,15 @@ BitRecovery/
 │           ├── times.h
 │           └── times.c
 └── README.md
-`
+```
 ⚙️ Build Instructions
 
 To compile the project:
-
+``` bash
 git clone https://github.com/blanckth/BitRecovery.git
 cd BitRecovery/src
 make
-
+```
 Ensure that you have the necessary build tools installed (e.g., gcc, make).
 🚀 Usage
 
@@ -48,9 +48,9 @@ Ensure that you have the necessary build tools installed (e.g., gcc, make).
     Sector Count: (Optional) Number of sectors to read (default: 1).
 
 Example:
-`
+``` bash
 ./bitrecovery /dev/sda 0 512 1
-`
+```
 🧩 Module Descriptions
 main.c
 
@@ -170,7 +170,7 @@ This project is licensed under the MIT License.
 
 بیت‌ریکاوری یک ابزار پیشرفته برای تحلیل و بازیابی داده‌ها در سطح پایین دیسک است. این ابزار به متخصصان بازیابی داده و کارشناسان جرم‌شناسی دیجیتال امکان می‌دهد تا تصاویر دیسک را در سطح سکتور بررسی کرده، ساختارهای پارتیشن‌بندی (MBR/GPT) را شناسایی کرده، امضاهای رمزنگاری (مانند BitLocker) را تشخیص داده و متادیتای حیاتی را استخراج کنند.
 📁 ساختار پروژه
-`
+``` bash
 BitRecovery/
 ├── src/
 │   ├── main.c
@@ -189,15 +189,15 @@ BitRecovery/
 │           ├── times.h
 │           └── times.c
 └── README.md
-`
+```
 ⚙️ دستورالعمل ساخت
 
 برای کامپایل پروژه:
-
+``` bash
 git clone https://github.com/blanckth/BitRecovery.git
 cd BitRecovery/src
 make
-
+```
 اطمینان حاصل کنید که ابزارهای لازم برای ساخت (مانند gcc و make) نصب شده‌اند.
 🚀 نحوه استفاده
 
@@ -212,9 +212,9 @@ make
     تعداد سکتورها: (اختیاری) تعداد سکتورهایی که باید خوانده شوند (پیش‌فرض: 1).
 
 مثال:
-
+``` bash
 ./bitrecovery /dev/sda 0 512 1
-
+```
 🧩 توضیحات ماژول‌ها
 main.c
 
@@ -275,7 +275,7 @@ utils/times/times.c و times.h
 
 BitRecovery برای بازیابی اطلاعات در سطح سکتور دیسک طراحی شده است. این نرم‌افزار قابلیت تشخیص، بررسی، لاگ‌برداری و تحلیل سکتورهای خام دیسک‌ها را دارد و به طور خاص برای شرایطی طراحی شده که دیسک آسیب دیده، رمزگذاری شده (مانند BitLocker)، یا حذف اطلاعات به صورت غیرقابل‌بازگشت انجام شده باشد.
 ⚙️ ساختار کلی پروژه
-
+``` bash
 BitRecovery/
 ├── README.md
 ├── src/
@@ -290,7 +290,7 @@ BitRecovery/
 │   │   ├── disk/
 │   │   │   ├── disk.c        ⬅ ماژول خواندن دیسک
 │   │   │   └── disk.h
-
+```
 💡 قابلیت‌های کلیدی پیاده‌سازی‌شده
 قابلیت	توضیحات
 🔹 تشخیص فایل ELF	نرم‌افزار فایل دیسک ایمیج را بررسی کرده و ساختار آن را شناسایی می‌کند. در تست شما، یک فایل ELF اجرا شده و ساختار آن با جزئیات کامل نمایش داده شده.
