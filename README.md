@@ -104,7 +104,7 @@ utils/times/times.c & times.h
 
 🧪 Sample Output
 
-`
+``` bash
 '''
 #. Application Start Running :  ./bitrecovery  /dev/sda
 #. 
@@ -147,7 +147,7 @@ utils/times/times.c & times.h
 #.             00000010  02 00 00 00 00 f8 00 00 3f 00 ff 00 3f 00 00 00   ......?..?.?...
 #.             ...
 '''
-`
+``` 
 
 🧠 Notes
 
