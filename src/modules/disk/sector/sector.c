@@ -1,4 +1,7 @@
+#include "../disk.h"
 #include "sector.h"
+
+
 
 // Read a sector
 size_t read_sector(DiskHandle *disk, uint64_t sector_num, size_t sector_size, uint8_t *buffer){

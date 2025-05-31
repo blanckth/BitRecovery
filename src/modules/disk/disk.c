@@ -1,4 +1,6 @@
 #include "disk.h"
+#include "../image/image.h"
+//#include "partition/partition.h"
 
 // Initialize disk handle
 DiskHandle *open_disk(ImageFile *img) {
@@ -25,7 +27,10 @@ DiskHandle *open_disk(ImageFile *img) {
     printf("# \t\t\tSoft block size: %u\n", soft_block_size);
     printf("# \t\t\tLogical block size: %u\n", logical_block_size);
     printf("# \t\t\tPhysical block size: %u\n", physical_block_size);
-    printf("# \t\t\tDisk Block Size: %d\n#\n",disk->block_size);
+    printf("# \t\t\tDisk Block Size: %ld\n#\n",disk->block_size);
+
+    
+
     return disk;
 }
 

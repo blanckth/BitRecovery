@@ -39,3 +39,18 @@ clean:
 rebuild: clean all
 
 .PHONY: all clean rebuild
+
+
+
+gcc -o test/bitrecovery \
+    src/main.c \
+    src/utils/times/times.c \
+    src/modules/image/image.c \
+    src/modules/disk/disk.c \
+    src/modules/disk/sector/sector.c \
+    src/modules/disk/partition/partition.c \
+    -I src/modules/disk \
+    -I src/modules/disk/sector \
+    -I src/modules/disk/partition \
+    -I src/utils/times \
+    -I src/modules/image

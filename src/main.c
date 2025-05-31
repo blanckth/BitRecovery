@@ -2,6 +2,8 @@
 #include "modules/image/image.h"
 #include "modules/disk/disk.h"
 #include "modules/disk/sector/sector.h"
+#include "modules/disk/partition/partition.h"
+
 
 
 
@@ -58,6 +60,18 @@ int main(int argc, char* argv[]) {
         perror("\t\tFailed to open disk");
         return 1;
     }
+    
+    printf("#\n# \t\tDisk Partition Table:\n");
+    PartitionTable *ptable = malloc(sizeof(PartitionTable));
+    if (!ptable) return NULL;
+    int PartRes = analyze_partition_table(disk, ptable);
+    if ( PartRes == 0 ) {
+        printf("# \t\t\tPartition Table Found!\n");
+        print_partition_table(ptable);
+    }
+    else
+        printf("# \t\t\tPartition Table Not Found!\n");
+
     printf("# \t\tLoading Sectors:\n");
 
 

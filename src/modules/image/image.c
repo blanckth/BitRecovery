@@ -55,7 +55,7 @@ int image_open(ImageFile *img, const char *path) {
     printf("# \t\tFile Open Timestamp: %s\n", tstrbuf); // Timestamp when file was opened
     printf("# \t\tFilename: %s\n", img->filename); // Timestamp when file was opened
     printf("# \t\tResume Sector: %d\n",img->lps);
-    printf("# \t\tSector Block Size: %d\n",img->sector_size);
+    printf("# \t\tSector Block Size: %ld\n",img->sector_size);
     if (img->is_gpt && img->is_mbr)
     printf("# \t\tPartitioning header: Protected MBR \n");
     if (img->is_gpt)

@@ -13,6 +13,7 @@
 #include <sys/ioctl.h>
 #include <ctype.h>
 #include "../image/image.h"
+#include "partition/partition.h"
 
 #define SECTOR_SIZE 4096
 

@@ -1,10 +1,16 @@
 #ifndef PARTITION_H
 #define PARTITION_H
 
+#include "../sector/sector.h"
+#include "../disk.h"
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "../disk.h"
+
+//typedef struct DiskHandle DiskHandle;
+
+// struct DiskHandle; // forward declaration
+// typedef struct disk DiskHandle;
 
 // Partition Types
 typedef enum {
@@ -19,6 +25,7 @@ typedef struct {
     uint64_t end_lba;
     uint64_t size_in_sectors;
     uint8_t type;
+    uint8_t type_guid[16];  // NEW: full GUID for GPT partitions
     char name[64]; // در GPT میشه پرش کرد، در MBR خالی
 } PartitionEntry;
 
@@ -28,6 +35,7 @@ typedef struct {
     size_t entry_count;
     PartitionEntry entries[128];  // ماکزیمم 128 برای GPT
 } PartitionTable;
+
 
 // تابع‌ها
 int analyze_partition_table(DiskHandle *disk, PartitionTable *ptable);
